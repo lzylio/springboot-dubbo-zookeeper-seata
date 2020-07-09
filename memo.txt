@@ -1,0 +1,36 @@
+教程详细地址(本项目配套文档)
+https://juejin.im/post/5d19ee6af265da1bcd37effa
+
+https://blog.csdn.net/weixin_46628206/article/details/105953474
+seata的AT模式会在服务调用失败后，自动恢复受影响的数据，其原理就是在启动事务之后，会自动分析当前事务中执行的SQL对数据的影响，
+把受影响的数据直接存储到本地数据库中，如果事务回滚了，就通过存储的数据备份对原始数据进行恢复（ AT模式介绍 ），
+所以我们需要在每个RM所在的业务数据库中初始化seata的undo_log表。（需要打断点查看，否则回滚后，undo_log 表的数据也会删除）
+官方原话：异步任务阶段的分支提交请求将异步和批量地删除相应 UNDO LOG 记录。
+
+Seata AT模式 本项目有undo_log表 所以应该是使用AT模式
+http://seata.io/zh-cn/docs/dev/mode/at-mode.html
+
+快速开始
+1.打开seata服务端(seata-server.bat)
+2.打开zookeeper(zkServer.cmd)
+3.回滚日志表???
+
+api
+http://127.0.0.1:8011/create_order
+回滚标志："tag":"1"
+正常调用
+{
+    "userId":"24",
+    "commodityCode":"honda",
+    "count":"10",
+    "tag":"0",
+    "amount":"17.98"
+}
+触发回滚
+{
+    "userId":"24",
+    "commodityCode":"honda",
+    "count":"10",
+    "tag":"1",
+    "amount":"17.98"
+}

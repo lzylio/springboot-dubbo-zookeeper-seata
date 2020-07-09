@@ -27,7 +27,7 @@ public class SeataConfiguration {
     private DataSourceProperties dataSourceProperties;
 
     @Bean
-    public GlobalTransactionScanner globalTransactionScanner() {
+    public GlobalTransactionScanner globalTransactionScanner() {//my_test_tx_group要和file.conf的保持一致
         return new GlobalTransactionScanner("springboot-storage", "my_test_tx_group");
     }
 

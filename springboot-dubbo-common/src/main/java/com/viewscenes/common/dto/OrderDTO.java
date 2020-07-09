@@ -12,4 +12,6 @@ public class OrderDTO implements Serializable {
     private String commodityCode;
     private Integer count;
     private Double amount;
+    //是否触发分布式事务回滚 1：回滚
+    private String tag;
 }

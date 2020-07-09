@@ -18,8 +18,9 @@ public class OrderController {
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @PostMapping("/create_order")
-    public void createOrder(@RequestBody OrderDTO order){
+    public String createOrder(@RequestBody OrderDTO order){
         logger.info("接收到订单数据：{}",order.getCommodityCode());
         orderService.createOrder(order);
+        return "done";
     }
 }

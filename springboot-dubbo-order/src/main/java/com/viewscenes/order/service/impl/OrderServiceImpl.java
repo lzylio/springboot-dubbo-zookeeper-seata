@@ -52,6 +52,12 @@ public class OrderServiceImpl implements OrderService {
         BeanUtils.copyProperties(orderDTO,order);
         orderMapper.createOrder(order);
 
-        logger.info("订单已创建：{}",orderDTO.getOrderNo());
+        //触发事务
+        if(orderDTO.getTag().equals("1")){//等于1 回滚
+            throw new RuntimeException("分布式事务异常..."+orderDTO.getOrderNo());
+        }else {
+            logger.info("订单已创建：{}",orderDTO.getOrderNo());
+        }
+
     }
 }
